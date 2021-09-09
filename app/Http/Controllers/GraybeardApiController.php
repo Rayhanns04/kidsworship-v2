@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\GCResource;
 use App\Http\Resources\GraybeardChildrenResource;
+use App\Http\Resources\GraybeardPrayerResource;
 use App\Http\Resources\GraybeardResource;
 use App\Models\Children;
 use App\Models\Graybeard;
@@ -23,7 +24,7 @@ class GraybeardApiController extends Controller
     {
         $graybeard = Graybeard::findOrFail($id);
 
-        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' => $graybeard->Prayers],  Response::HTTP_OK);
+        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' =>  GraybeardPrayerResource::collection($graybeard->Prayers)],  Response::HTTP_OK);
     }
 
     public function eachChildren($id)
