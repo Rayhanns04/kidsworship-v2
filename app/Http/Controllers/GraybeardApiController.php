@@ -23,7 +23,8 @@ class GraybeardApiController extends Controller
     public function index($id)
     {
         $graybeard = Graybeard::findOrFail($id);
-        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' =>  GraybeardPrayerResource::collection($graybeard->Prayers()->where('prayers.created_at', '>=', Carbon::now())->get())],  Response::HTTP_OK);
+
+        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' =>  GraybeardPrayerResource::collection($graybeard->Prayers()->where('prayers.created_at', '>=', Carbon::today())->where('prayers.created_at', '<', Carbon::tomorrow())->get())],  Response::HTTP_OK);
     }
 
     public function eachChildren($id)
