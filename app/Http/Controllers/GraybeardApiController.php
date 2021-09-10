@@ -23,14 +23,12 @@ class GraybeardApiController extends Controller
     public function index($id)
     {
         $graybeard = Graybeard::findOrFail($id);
-
-        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' =>  GraybeardPrayerResource::collection($graybeard->Prayers)],  Response::HTTP_OK);
+        return response()->json(['message' => 'Success get all Prayer from this parent', 'data' =>  GraybeardPrayerResource::collection($graybeard->Prayers()->where('prayers.created_at', '>=', Carbon::now())->get())],  Response::HTTP_OK);
     }
 
     public function eachChildren($id)
     {
         $graybeard = Graybeard::find($id);
-
         return response()->json(['message' => 'Success get children from this parent with prayers', 'data' => GCResource::collection($graybeard->Childrens)],  Response::HTTP_OK);
     }
 

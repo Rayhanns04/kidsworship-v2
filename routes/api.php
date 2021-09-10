@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     Route::prefix('/parents')->group(function () {
-        Route::get('/childrens/{id}', [GraybeardApiController::class, 'eachChildren']);
         Route::get('/{id}', [GraybeardApiController::class, 'index']);
+        Route::get('/childrens/{id}', [GraybeardApiController::class, 'eachChildren']);
         Route::post('/logout', [ChildrenAuthApiController::class, 'logout']);
     });
 
