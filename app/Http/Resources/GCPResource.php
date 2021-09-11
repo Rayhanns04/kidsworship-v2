@@ -25,6 +25,7 @@ class GCPResource extends JsonResource
                 'startTime' => $this->commonTime->startTime,
                 'endTime' => $this->commonTime->endTime,
             ],
+            'date' => $this->date,
             'created_time' => $this->created_time,
             'created_at' => $this->created_at
         ];

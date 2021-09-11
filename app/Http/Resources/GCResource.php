@@ -19,7 +19,9 @@ class GCResource extends JsonResource
             'fullname' => $this->fullname,
             'old' => $this->old,
             'number_child' => $this->number_child,
-            'prayers' => GCPResource::collection($this->Prayers)
+            'prayers' => GCPResource::collection($this->Prayers)->groupBy(function ($item, $key) {
+                return substr($item['date'], 0, 7);
+            })
         ];
     }
 }
