@@ -68,8 +68,6 @@ class PrayerController extends Controller
         $timeCarbon = $time->isoFormat('HH:mm');
 
         $dateCarbon = $time->format('F Y');
-        dd($dateCarbon);
-
 
         $prayer = new Prayer;
         $prayer->name = $request->name;

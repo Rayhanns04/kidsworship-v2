@@ -20,8 +20,6 @@ class GCResource extends JsonResource
                 return substr($item['date'], 0, 7);
             });
 
-        dd($grouped);
-
         return [
             'id' =>  $this->id,
             'fullname' => $this->fullname,
