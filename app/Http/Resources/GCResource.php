@@ -15,10 +15,12 @@ class GCResource extends JsonResource
     public function toArray($request)
     {
 
+        // $grouped =
+        //     GCPResource::collection($this->Prayers)->groupBy(function ($item, $key) {
+        //         return substr($item['date'], 0, 7);
+        //     });
         $grouped =
-            GCPResource::collection($this->Prayers)->groupBy(function ($item, $key) {
-                return substr($item['date'], 0, 7);
-            });
+            GCPResource::collection($this->Prayers)->groupBy('date');
 
         return [
             'id' =>  $this->id,
