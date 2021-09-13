@@ -15,7 +15,7 @@ class AddDateToPrayersTable extends Migration
     public function up()
     {
         Schema::table('prayers', function (Blueprint $table) {
-            $table->date('date')->default(date("Y-m-d"));
+            $table->string('date');
         });
     }
 

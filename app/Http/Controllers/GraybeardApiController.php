@@ -31,6 +31,7 @@ class GraybeardApiController extends Controller
     {
         $graybeard = Graybeard::find($id);
 
+
         return response()->json(['message' => 'Success get children from this parent with prayers', 'data' => GCResource::collection($graybeard->Childrens)],  Response::HTTP_OK);
     }
 

@@ -30,7 +30,7 @@ class PrayerController extends Controller
 
     public function getPrayer($id)
     {
-        $prayer = Prayer::where('children_id',$id)->whereDate('created_at', '>=', Carbon::now())->get();
+        $prayer = Prayer::where('children_id', $id)->whereDate('created_at', '>=', Carbon::now())->get();
 
         return response()->json(['message' => 'success get all prayers', 'data' => PrayerResource::collection($prayer)], Response::HTTP_OK);
     }
@@ -67,6 +67,9 @@ class PrayerController extends Controller
         $time = Carbon::now();
         $timeCarbon = $time->isoFormat('HH:mm');
 
+        $dateCarbon = $time->format('F Y');
+        dd($dateCarbon);
+
 
         $prayer = new Prayer;
         $prayer->name = $request->name;
@@ -75,11 +78,10 @@ class PrayerController extends Controller
         $prayer->children_id = $request->children_id;
         $prayer->common_time_id = $request->common_time_id;
         $prayer->created_time = $timeCarbon;
+        $prayer->date = $dateCarbon;
         $prayer->save();
 
         return response()->json(['message' => 'Success created', 'data' => $prayer], Response::HTTP_OK);
-
-
     }
 
     /**
