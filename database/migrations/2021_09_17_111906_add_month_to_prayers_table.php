@@ -3,10 +3,9 @@
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Schema;
 
-class AddDateToPrayersTable extends Migration
+class AddMonthToPrayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +15,7 @@ class AddDateToPrayersTable extends Migration
     public function up()
     {
         Schema::table('prayers', function (Blueprint $table) {
-            $table->date('date')->default(date('Y/m/d'));
+            $table->string('month')->default(Carbon::now()->format('F'));
         });
     }
 
@@ -28,7 +27,7 @@ class AddDateToPrayersTable extends Migration
     public function down()
     {
         Schema::table('prayers', function (Blueprint $table) {
-            $table->dropColumn('date');
+            $table->dropColumn('month');
         });
     }
 }

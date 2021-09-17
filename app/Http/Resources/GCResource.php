@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GCResource extends JsonResource
@@ -14,13 +15,15 @@ class GCResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        // $grouped =
-        //     GCPResource::collection($this->Prayers)->groupBy(function ($item, $key) {
-        //         return substr($item['date'], 0, 7);
-        //     });
         $grouped =
-            GCPResource::collection($this->Prayers)->groupBy('date');
+            GCPResource::collection($this->Prayers)->groupBy([function ($item, $key) {
+                // dd(substr($item['date'], 0, 4));
+                // dd(Str::substr($item['date'], 0, 6));
+                $year = substr($item['date'], 0, 6) . '01';
+                $result = substr($year, 0, 5);
+
+                return $result;
+            }, 'month']);
 
         return [
             'id' =>  $this->id,
