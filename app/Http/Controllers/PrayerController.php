@@ -67,7 +67,7 @@ class PrayerController extends Controller
         $time = Carbon::now();
         $timeCarbon = $time->isoFormat('HH:mm');
 
-        $dateCarbon = $time->format('F Y');
+        $dateCarbon = $time->format('Y/m/d');
 
         $prayer = new Prayer;
         $prayer->name = $request->name;
@@ -77,6 +77,7 @@ class PrayerController extends Controller
         $prayer->common_time_id = $request->common_time_id;
         $prayer->created_time = $timeCarbon;
         $prayer->date = $dateCarbon;
+        $prayer->month = Carbon::now()->format('F');
         $prayer->save();
 
         return response()->json(['message' => 'Success created', 'data' => $prayer], Response::HTTP_OK);
