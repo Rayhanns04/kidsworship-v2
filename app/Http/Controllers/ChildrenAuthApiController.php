@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ChildrenAuthResource;
 use App\Models\Children;
 use App\Models\Graybeard;
 use Illuminate\Database\QueryException;
@@ -52,7 +53,7 @@ class ChildrenAuthApiController extends Controller
 
     public function login(Request $request)
     {
-        $user = Children::where('email', $request->email)->firstOrFail();
+        $user = Children::where('email', $request->email)->with('Graybeard')->firstOrFail();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
@@ -64,7 +65,7 @@ class ChildrenAuthApiController extends Controller
 
         return response()->json([
             'message' => 'success',
-            'user' => $user,
+            'user' => new ChildrenAuthResource($user),
             'token' => $token
         ], Response::HTTP_CREATED);
     }
