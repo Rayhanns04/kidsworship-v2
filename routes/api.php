@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::prefix('/childrens')->group(function () {
         Route::post('/', [GraybeardController::class, 'index']);
+        Route::patch('/{id}', [ChildrenAuthApiController::class, 'updateProfile']);
         Route::post('/logout', [GraybeardController::class, 'logout']);
     });
 

@@ -79,6 +79,20 @@ class ChildrenAuthApiController extends Controller
             'message' => 'Logout success!',
         ], Response::HTTP_OK);
     }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $children = Children::findOrFail($id);
+        $children->update([
+            'fullname' => $request->fullname,
+            'old' => $request->old
+        ]);
+
+        return response()->json([
+            'message' => 'Success save changed!',
+        ], Response::HTTP_OK);
+    }
+
     /**
      * Display a listing of the resource.
      *
