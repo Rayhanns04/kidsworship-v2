@@ -37,18 +37,18 @@ class ChildrenAuthApiController extends Controller
             return response()->json(['message' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $childrens = new Children;
-        $childrens->email = $request->email;
-        $childrens->fullname = $request->fullname;
-        $childrens->password = Hash::make($request->password);
-        $childrens->old = $request->old;
-        $childrens->number_child = $request->number_child;
-        $childrens->graybeard_id = $request->graybeard_id;
-        $childrens->save();
+        $children = new Children;
+        $children->email = $request->email;
+        $children->fullname = $request->fullname;
+        $children->password = Hash::make($request->password);
+        $children->old = $request->old;
+        $children->number_child = $request->number_child;
+        $children->graybeard_id = $request->graybeard_id;
+        $children->save();
 
-        $token = $childrens->createToken('auth_token')->plainTextToken;
+        $token = $children->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'Success Register', 'token' => $token, 'data' => $childrens], Response::HTTP_CREATED);
+        return response()->json(['message' => 'Success Register', 'token' => $token, 'data' => new ChildrenAuthResource($children)], Response::HTTP_CREATED);
     }
 
     public function login(Request $request)
