@@ -25,7 +25,7 @@ class PrayerController extends Controller
         return response()->json(['message' => 'success get all prayers', 'data' => PrayerResource::collection($prayer)], Response::HTTP_OK);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'string|required',
@@ -43,7 +43,7 @@ class PrayerController extends Controller
 
         $dateCarbon = $time->format('Y/m/d');
 
-        $prayerVerification = Prayer::where('name', $request->name)->whereDate('created_at', Carbon::today())->get();
+        $prayerVerification = Prayer::where('children_id', $id)->where('name', $request->name)->whereDate('created_at', Carbon::today())->get();
         // dd($prayerVerification->count());
 
         if ($prayerVerification->count() != 0) {

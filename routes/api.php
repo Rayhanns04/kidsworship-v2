@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::prefix('/prayers')->group(function () {
         Route::get('/', [PrayerController::class, 'index']);
-        Route::post('/store', [PrayerController::class, 'store']);
+        Route::post('/store/{id}', [PrayerController::class, 'store']);
         Route::get('/{id}', [PrayerController::class, 'getPrayer']);
     });
 
