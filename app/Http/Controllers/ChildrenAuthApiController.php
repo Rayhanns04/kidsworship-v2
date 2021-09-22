@@ -48,7 +48,7 @@ class ChildrenAuthApiController extends Controller
 
         $token = $children->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'Success Register', 'token' => $token, 'data' => new ChildrenAuthResource($children)], Response::HTTP_CREATED);
+        return response()->json(['message' => 'Success Register', 'token' => $token, 'user' => new ChildrenAuthResource($children)], Response::HTTP_CREATED);
     }
 
     public function login(Request $request)
