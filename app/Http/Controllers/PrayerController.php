@@ -11,22 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class PrayerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $prayers = Prayer::with('commonTime', 'Children')->get();
 
         return response()->json(['message' => 'success get all prayers', 'data' => PrayerResource::collection($prayers)]);
     }
-
-    /**
-     * Display a listing of the resource have filtered.
-     *
-     */
 
     public function getPrayer($id)
     {
@@ -35,22 +25,6 @@ class PrayerController extends Controller
         return response()->json(['message' => 'success get all prayers', 'data' => PrayerResource::collection($prayer)], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -69,6 +43,13 @@ class PrayerController extends Controller
 
         $dateCarbon = $time->format('Y/m/d');
 
+        $prayerVerification = Prayer::where('name', $request->name)->whereDate('created_at', Carbon::today())->get();
+        // dd($prayerVerification->count());
+
+        if ($prayerVerification->count() != 0) {
+            return response()->json(['message' => 'Item is already!'], Response::HTTP_CONFLICT);
+        }
+
         $prayer = new Prayer;
         $prayer->name = $request->name;
         $prayer->description = $request->description;
@@ -81,50 +62,5 @@ class PrayerController extends Controller
         $prayer->save();
 
         return response()->json(['message' => 'Success created', 'data' => $prayer], Response::HTTP_OK);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Prayer  $prayer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Prayer $prayer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Prayer  $prayer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Prayer $prayer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Prayer  $prayer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Prayer $prayer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Prayer  $prayer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Prayer $prayer)
-    {
-        //
     }
 }
