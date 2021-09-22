@@ -53,7 +53,6 @@ class PrayerController extends Controller
         $prayer = new Prayer;
         $prayer->name = $request->name;
         $prayer->description = $request->description;
-        // $prayer->all_asset_id = $request->all_asset_id;
         $prayer->children_id = $request->children_id;
         $prayer->common_time_id = $request->common_time_id;
         $prayer->created_time = $timeCarbon;

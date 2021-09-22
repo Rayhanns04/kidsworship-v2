@@ -32,10 +32,11 @@ class GraybeardController extends Controller
 
         $token = $graybeards->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'Success Register', 'token' => $token, 'data' => $graybeards], Response::HTTP_OK);
+        return response()->json(['message' => 'Success Register', 'token' => $token, 'user' => $graybeards], Response::HTTP_OK);
     }
 
-   public function login(Request $request) {
+    public function login(Request $request)
+    {
         $user = Graybeard::where('email', $request->email)->firstOrFail();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -94,7 +95,7 @@ class GraybeardController extends Controller
         ]);
 
         if ($validator->fails()) {
-             return response()->json(['message' => 'invalid fields', 422, 'error' => $validator->errors()]);
+            return response()->json(['message' => 'invalid fields', 422, 'error' => $validator->errors()]);
         }
 
         $graybeard = new Graybeard;
@@ -104,7 +105,6 @@ class GraybeardController extends Controller
         $graybeard->save();
 
         return redirect('graybeards');
-
     }
 
     /**
@@ -122,7 +122,7 @@ class GraybeardController extends Controller
             'password' => 'required|string',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['message' => 'invalid fields', 422, 'error' => $validator->errors()]);
         }
 
@@ -135,12 +135,6 @@ class GraybeardController extends Controller
         return redirect('graybeards');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CommonTime  $commonTime
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $graybeard = Graybeard::findOrFail($id);
