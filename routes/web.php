@@ -18,19 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::prefix('/auth')->group(function () {
     Route::get('/register', [AuthController::class, 'register']);
 });
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/common-times')->group(function() {
+Route::prefix('/common-times')->group(function () {
     Route::get('/', [CommonTimeController::class, 'index']);
     Route::get('/create', [CommonTimeController::class, 'create']);
     Route::post('/save-create', [CommonTimeController::class, 'store']);
@@ -39,7 +36,7 @@ Route::prefix('/common-times')->group(function() {
     Route::get('/{id}', [CommonTimeController::class, 'destroy']);
 });
 
-Route::prefix('/all-assets')->group(function() {
+Route::prefix('/all-assets')->group(function () {
     Route::get('/', [AllAssetController::class, 'index']);
     Route::get('/create', [AllAssetController::class, 'create']);
     Route::post('/save-create', [AllAssetController::class, 'store']);
@@ -48,7 +45,7 @@ Route::prefix('/all-assets')->group(function() {
     Route::get('/{id}', [AllAssetController::class, 'destroy']);
 });
 
-Route::prefix('/childrens')->group(function() {
+Route::prefix('/childrens')->group(function () {
     Route::get('/', [ChildrenController::class, 'index']);
     Route::get('/create', [ChildrenController::class, 'create']);
     Route::post('/save-create', [ChildrenController::class, 'store']);
@@ -57,7 +54,7 @@ Route::prefix('/childrens')->group(function() {
     Route::get('/{id}', [ChildrenController::class, 'destroy']);
 });
 
-Route::prefix('/graybeards')->group(function() {
+Route::prefix('/graybeards')->group(function () {
     Route::get('/', [GraybeardController::class, 'index']);
     Route::get('/create', [GraybeardController::class, 'create']);
     Route::post('/save-create', [GraybeardController::class, 'store']);

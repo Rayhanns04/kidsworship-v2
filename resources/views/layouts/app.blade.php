@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" type="image/jpg" href="https://i.imgur.com/mM4GHMk.png" />
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset('assets/images/logo/logo.png') }}" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -89,7 +89,8 @@
                                 <span> {{ __('Logout') }}</span>
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                class="d-none">
                                 @csrf
                             </form>
                         </li>

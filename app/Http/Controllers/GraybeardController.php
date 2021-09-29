@@ -24,6 +24,12 @@ class GraybeardController extends Controller
             return response()->json(['message' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $checkGraybeardAlready = Graybeard::where('email', $request->email)->firstOrFail();
+
+        if ($checkGraybeardAlready) {
+            return response()->json(['message' => 'Already!'], Response::HTTP_OK);
+        }
+
         $graybeards = new Graybeard;
         $graybeards->email = $request->email;
         $graybeards->fullname = $request->fullname;

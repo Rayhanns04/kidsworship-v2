@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AllAsset;
+use App\Models\CommonTime;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $commonTimes = CommonTime::all();
+        $Title = "Common Times";
+        $allAssets = AllAsset::all();
+        $TitleAssets = "All Assets";
+
+        return view('home', compact('commonTimes', 'Title', 'allAssets', 'TitleAssets'));
     }
 }

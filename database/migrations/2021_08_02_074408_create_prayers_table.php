@@ -17,8 +17,8 @@ class CreatePrayersTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("description");
-            $table->foreignId("children_id")->constrained("childrens");
-            $table->foreignId("common_time_id")->constrained("common_times");
+            $table->foreignId("children_id")->constrained("childrens")->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId("common_time_id")->constrained("common_times")->onDelete('cascade')->onUpdate('cascade');
             $table->string("created_time");
             $table->timestamps();
         });

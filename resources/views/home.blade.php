@@ -4,8 +4,8 @@
 @section('page-heading', 'Profile Statistics')
 
 @section('content')
-<div class="page-content">
-<section class="row">
+    <div class="page-content">
+        {{-- <section class="row">
     <div class="col-12 col-lg-9">
         <div class="row">
             <div class="col-6 col-lg-3 col-md-6">
@@ -265,7 +265,81 @@
             </div>
         </div>
     </div>
-</section>
-</div>
+
+</section> --}}
+
+        <div class="page-heading d-md-flex justify-content-between">
+            <h3>Table all {{ $Title }}</h3>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    <!-- Table with outer spacing -->
+                    <div class="table-responsive">
+                        <table class="table table-lg">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Asset</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($commonTimes as $commonTime)
+                                    <tr>
+                                        <td class="text-bold-500">{{ $loop->iteration }}</td>
+                                        <td>{{ $commonTime->name }}</td>
+                                        <td>{{ $commonTime->startTime }}</td>
+                                        <td>{{ $commonTime->endTime }}</td>
+                                        <td>
+                                            <a href="{{ asset('assets/images/allAsset/' . $commonTime->AllAsset->image) }}"
+                                                target="_blank">View Image</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-heading d-md-flex justify-content-between">
+            <h3>Table all {{ $TitleAssets }}</h3>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    <!-- Table with outer spacing -->
+                    <div class="table-responsive">
+                        <table class="table table-lg">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($allAssets as $allAsset)
+                                    <tr>
+                                        <td class="text-bold-500">{{ $loop->iteration }}</td>
+                                        <td><a href="{{ asset('assets/images/allAsset/' . $allAsset->image) }}"
+                                                target="_blank">View Image</a>
+                                        </td>
+                                        <td>{{ $allAsset->name }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

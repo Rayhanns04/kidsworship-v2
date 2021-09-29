@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Cookies',
             'email' => 'cookies@gmail.com',
-            'password' => bcrypt('adminintek'),
+            'password' => Hash::make('adminintek'),
             'created_at' => now()
         ]);
     }
